@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portofolio dengan Kotak Terpisah</title>
+  <title>Portofolio Lengkap</title>
   <style>
+    /* Reset & dasar */
     * {
       box-sizing: border-box;
     }
@@ -18,7 +19,7 @@
       position: relative;
     }
 
-    /* Canvas untuk animasi bola di background */
+    /* Canvas animasi di background */
     #canvas {
       position: fixed;
       top: 0; left: 0;
@@ -61,16 +62,16 @@
 
     /* Kotak konten */
     .box {
-      background: rgba(255 255 255 / 0.05);
+      background: rgba(10, 170, 255, 0.1);
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(10, 170, 255, 0.2);
-      padding: 1.8rem 2rem;
-      margin: 2.5rem auto;
+      box-shadow: 0 0 20px rgba(10, 170, 255, 0.3);
+      padding: 2rem 2.5rem;
+      margin: 3rem auto;
       width: 80%;
       max-width: 600px;
       opacity: 0;
       transform: translateY(50px);
-      transition: all 0.7s ease-out;
+      transition: all 0.8s ease-out;
     }
     .box.show {
       opacity: 1;
@@ -80,7 +81,7 @@
       color: #0af;
       border-bottom: 3px solid #0af;
       padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       text-align: center;
     }
 
@@ -101,7 +102,7 @@
       padding: 2rem 1rem;
       color: #666;
       font-size: 0.9rem;
-      margin-top: 5rem;
+      margin-top: 6rem;
     }
 
     #scrollTopBtn {
@@ -166,7 +167,7 @@
 </footer>
 
 <script>
-  // Canvas setup
+  // Setup canvas
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
@@ -244,7 +245,7 @@
   }
   animate();
 
-  // Animasi muncul saat scroll
+  // Animasi fade-in tiap kotak saat scroll
   const boxes = document.querySelectorAll('.box');
   function revealBoxes() {
     const trigger = window.innerHeight * 0.85;
