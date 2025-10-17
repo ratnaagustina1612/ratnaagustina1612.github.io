@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portofolio dengan Kotak Terpisah</title>
+  <title>Portofolio Estetik</title>
   <style>
-    /* Reset dan dasar */
     * {
       box-sizing: border-box;
     }
@@ -24,7 +23,6 @@
       z-index: -1;
       background: #121212;
     }
-
     header {
       text-align: center;
       padding: 3rem 1rem 1rem;
@@ -55,29 +53,39 @@
       margin: 0;
     }
 
-    /* Container untuk kotak */
     .container {
       max-width: 900px;
       margin: 3rem auto 6rem;
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      justify-content: center;
       padding: 0 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 2rem;
+      grid-template-areas:
+        "tentang projek"
+        "kontak kontak";
     }
 
-    /* Kotak-kotak */
+    #tentang {
+      grid-area: tentang;
+    }
+    #projek {
+      grid-area: projek;
+    }
+    #kontak {
+      grid-area: kontak;
+    }
+
     .box {
       background: rgba(10,170,255,0.12);
       border-radius: 14px;
       box-shadow: 0 0 20px rgba(10,170,255,0.4);
       padding: 2rem 2.5rem;
-      width: 280px;
       min-height: 280px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       transition: transform 0.3s ease;
+      color: #ddd;
     }
     .box:hover {
       transform: translateY(-8px);
@@ -94,14 +102,12 @@
     }
 
     .box p, .box ul {
-      flex-grow: 1;
       line-height: 1.5;
-      color: #ddd;
       font-size: 1rem;
+      margin: 0;
     }
     .box ul {
       padding-left: 1.5rem;
-      margin: 0;
     }
     .box ul li {
       margin-bottom: 0.7rem;
@@ -124,14 +130,15 @@
       margin-bottom: 1rem;
     }
 
-    @media(max-width: 940px){
+    @media(max-width: 700px){
       .container {
-        justify-content: center;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "tentang"
+          "projek"
+          "kontak";
       }
-    }
-    @media(max-width: 600px){
       .box {
-        width: 90%;
         min-height: auto;
       }
     }
@@ -143,7 +150,7 @@
 
 <header>
   <img src="https://avatars.githubusercontent.com/u/9919?s=280&v=4" alt="Foto Profil" />
-  <h1>Nama Kamu</h1>
+  <h1>Ratna Agustina</h1>
   <p>Frontend Developer & UI/UX Designer</p>
 </header>
 
