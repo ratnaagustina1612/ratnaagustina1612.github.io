@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portofolio Web</title>
+  <title>Portofolio Web - Ratna Agustina</title>
   <style>
   * {
     box-sizing: border-box;
@@ -72,21 +72,10 @@
       "keahlian kontak";
   }
 
-  #tentang {
-    grid-area: tentang;
-  }
-
-  #projek {
-    grid-area: projek;
-  }
-
-  #keahlian {
-    grid-area: keahlian;
-  }
-
-  #kontak {
-    grid-area: kontak;
-  }
+  #tentang { grid-area: tentang; }
+  #projek { grid-area: projek; }
+  #keahlian { grid-area: keahlian; }
+  #kontak { grid-area: kontak; }
 
   .box {
     background: rgba(10,170,255,0.12);
@@ -121,160 +110,14 @@
     margin: 0;
   }
 
-  .box ul {
-    padding-left: 1.5rem;
+  .skill {
+    margin-bottom: 1.2rem;
   }
 
-  .box ul li {
-    margin-bottom: 0.7rem;
+  .skill-name {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
   }
 
-  a {
-    color: #0af;
-    text-decoration: none;
-    word-break: break-word;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  footer {
-    text-align: center;
-    padding: 2rem 1rem;
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  @media (max-width: 700px) {
-    .container {
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        "tentang"
-        "projek"
-        "keahlian"
-        "kontak";
-    }
-    .box {
-      min-height: auto;
-    }
-  }
-</style>
-</head>
-<body>
-
-<canvas id="canvas"></canvas>
-
-<header>
-  <img src="Ratna Agustina.png" alt="Foto Profil" />
-  <h1>Ratna Agustina</h1>
-  <p>Junior Web Developer</p>
-</header>
-
-<div class="container">
-  <section class="box" id="tentang">
-    <h2>Tentang Saya</h2>
-    <p>Saya Ratna Agustina, siswi jurusan Rekayasa Perangkat Lunak (RPL) yang sedang melaksanakan Praktik Kerja Lapangan (PKL) di bidang Web Development.
-Saya memiliki minat yang tinggi dalam pembuatan dan pengembangan website, baik dari sisi tampilan (front-end) maupun logika program (back-end).
-
-Selama menjalani PKL, saya belajar untuk menerapkan ilmu yang telah dipelajari di sekolah ke dalam dunia kerja nyata, khususnya dalam penggunaan HTML, CSS, JavaScript, PHP, dan Laravel.
-    </p>
-  </section>
-
-  <section class="box" id="projek">
-    <h2>Proyek</h2>
-    <ul>
-      <li><strong>Portofolio Online:</strong> Website yang menampilkan profil dan karya saya.</li>
-      <li><strong>Aplikasi Belanja:</strong> Aplikasi belanja yang bisa membuat struk belanja di akhir web.</li>
-    </ul>
-  </section>
-
-  <section class="box" id="kontak">
-    <h2>Kontak</h2>
-    <p>Email: <a href="ratna.naaanaaa.16@gmail.com">ratna.naaanaaa.16@gmail.com</a></p>
-    <p>Telepon: <a>085281751304</a></p>
-    <p>Alamat: <a>Jln. Melati 1, Gg.Hj.Murtaba</a></p>
-    <P>LinkEd: <a href="https://www.linkedin.com/in/ratna-agustina-8793b638b/">https://www.linkedin.com/in/ratna-agustina</a></P>
-  </section>
-</div>
-
-<footer>
-  &copy; 2025 Ratna Agustina. Semua hak dilindungi.
-</footer>
-
-<script>
-  // Canvas animasi bola bergerak di background
-  const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
-  let w, h;
-
-  function resize() {
-    w = window.innerWidth;
-    h = window.innerHeight;
-    canvas.width = w;
-    canvas.height = h;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  class Ball {
-    constructor(x,y,r,color){
-      this.x = x;
-      this.y = y;
-      this.r = r;
-      this.color = color;
-      this.vx = (Math.random() - 0.5) * 1.3;
-      this.vy = (Math.random() - 0.5) * 1.3;
-    }
-    draw(){
-      ctx.beginPath();
-      ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = 10;
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
-      ctx.fill();
-    }
-    update(){
-      this.x += this.vx;
-      this.y += this.vy;
-
-      if(this.x + this.r > w || this.x - this.r < 0) this.vx *= -1;
-      if(this.y + this.r > h || this.y - this.r < 0) this.vy *= -1;
-    }
-  }
-
-  const balls = [];
-  const totalBalls = 40;
-  for(let i=0; i<totalBalls; i++){
-    const radius = 5 + Math.random() * 7;
-    const x = Math.random() * (w - 2*radius) + radius;
-    const y = Math.random() * (h - 2*radius) + radius;
-    const alpha = 0.2 + Math.random() * 0.6;
-    balls.push(new Ball(x,y,radius,`rgba(10,170,255,${alpha})`));
-  }
-
-  const cursorBall = new Ball(w/2, h/2, 14, 'rgba(0,200,255,0.8)');
-  let mouseX = w/2;
-  let mouseY = h/2;
-  window.addEventListener('mousemove', e => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  function animate(){
-    ctx.clearRect(0,0,w,h);
-    balls.forEach(ball => {
-      ball.update();
-      ball.draw();
-    });
-    cursorBall.x += (mouseX - cursorBall.x) * 0.15;
-    cursorBall.y += (mouseY - cursorBall.y) * 0.15;
-    cursorBall.draw();
-    requestAnimationFrame(animate);
-  }
-  animate();
-</script>
-
-</body>
-</html>
+  .skill-bar {
+    height: 10
