@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portofolio dengan Animasi Bola Bergerak</title>
+  <title>Portofolio dengan Kotak Terpisah</title>
   <style>
-    /* Reset dan dasar styling */
     * {
       box-sizing: border-box;
     }
@@ -19,7 +18,7 @@
       position: relative;
     }
 
-    /* Canvas background */
+    /* Canvas untuk animasi bola di background */
     #canvas {
       position: fixed;
       top: 0; left: 0;
@@ -60,22 +59,15 @@
       margin: 0;
     }
 
-    /* Container untuk kotak-kotak konten */
-    .container {
-      max-width: 900px;
-      margin: 3rem auto;
-      display: grid;
-      gap: 2rem;
-      padding: 0 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
-    /* Kotak section */
+    /* Kotak konten */
     .box {
       background: rgba(255 255 255 / 0.05);
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(10, 170, 255, 0.2);
-      padding: 1.5rem 1.2rem;
+      padding: 1.8rem 2rem;
+      margin: 2.5rem auto;
+      width: 80%;
+      max-width: 600px;
       opacity: 0;
       transform: translateY(50px);
       transition: all 0.7s ease-out;
@@ -84,7 +76,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-
     .box h2 {
       color: #0af;
       border-bottom: 3px solid #0af;
@@ -138,40 +129,35 @@
 </head>
 <body>
 
-<!-- Canvas untuk animasi bola -->
 <canvas id="canvas"></canvas>
 
 <header>
-  <!-- Ganti foto ini dengan foto profilmu -->
   <img src="https://avatars.githubusercontent.com/u/9919?s=280&v=4" alt="Foto Profil Nama Kamu" />
   <h1>Nama Kamu</h1>
   <p>Frontend Developer & UI/UX Designer</p>
 </header>
 
-<!-- Container kotak-kotak konten -->
-<div class="container">
-  <section class="box">
-    <h2>Tentang Saya</h2>
-    <p>
-      Saya seorang developer web yang menyukai desain modern dan animasi interaktif menggunakan JavaScript. Saya fokus pada pembuatan pengalaman pengguna yang menarik dan fungsional.
-    </p>
-  </section>
+<section class="box" id="tentang">
+  <h2>Tentang Saya</h2>
+  <p>
+    Saya seorang developer web yang menyukai desain modern dan animasi interaktif menggunakan JavaScript. Saya fokus pada pembuatan pengalaman pengguna yang menarik dan fungsional.
+  </p>
+</section>
 
-  <section class="box">
-    <h2>Proyek</h2>
-    <ul>
-      <li><strong>Portofolio Online:</strong> Website yang menampilkan profil dan karya saya.</li>
-      <li><strong>Aplikasi ToDo:</strong> Aplikasi manajemen tugas dengan fitur penyimpanan lokal.</li>
-      <li><strong>Game Kuis:</strong> Game berbasis browser dengan animasi dan interaksi menarik.</li>
-    </ul>
-  </section>
+<section class="box" id="projek">
+  <h2>Proyek</h2>
+  <ul>
+    <li><strong>Portofolio Online:</strong> Website yang menampilkan profil dan karya saya.</li>
+    <li><strong>Aplikasi ToDo:</strong> Aplikasi manajemen tugas dengan fitur penyimpanan lokal.</li>
+    <li><strong>Game Kuis:</strong> Game berbasis browser dengan animasi dan interaksi menarik.</li>
+  </ul>
+</section>
 
-  <section class="box">
-    <h2>Kontak</h2>
-    <p>Email: <a href="mailto:kamu@email.com">kamu@email.com</a></p>
-    <p>GitHub: <a href="https://github.com/username" target="_blank" rel="noopener noreferrer">github.com/username</a></p>
-  </section>
-</div>
+<section class="box" id="kontak">
+  <h2>Kontak</h2>
+  <p>Email: <a href="mailto:kamu@email.com">kamu@email.com</a></p>
+  <p>GitHub: <a href="https://github.com/username" target="_blank" rel="noopener noreferrer">github.com/username</a></p>
+</section>
 
 <button id="scrollTopBtn" aria-label="Scroll ke atas">↑</button>
 
@@ -180,7 +166,7 @@
 </footer>
 
 <script>
-  // Setup canvas
+  // Canvas setup
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
@@ -258,7 +244,7 @@
   }
   animate();
 
-  // Animasi box muncul saat scroll
+  // Animasi muncul saat scroll
   const boxes = document.querySelectorAll('.box');
   function revealBoxes() {
     const trigger = window.innerHeight * 0.85;
