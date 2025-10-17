@@ -3,34 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portofolio Lengkap</title>
+  <title>Portofolio dengan Kotak Terpisah</title>
   <style>
-    /* Reset & dasar */
+    /* Reset dan dasar */
     * {
       box-sizing: border-box;
     }
     body, html {
-      margin: 0; padding: 0;
+      margin:0; padding:0;
+      height:100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #121212;
       color: #eee;
       overflow-x: hidden;
     }
-
-    /* Canvas animasi background */
     #canvas {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
+      top:0; left:0;
+      width:100%; height:100%;
       z-index: -1;
       background: #121212;
-      display: block;
     }
 
     header {
       text-align: center;
-      padding: 4rem 1rem 2rem;
+      padding: 3rem 1rem 1rem;
     }
     header img {
       width: 140px;
@@ -47,8 +44,8 @@
       transform: scale(1.1) rotate(5deg);
     }
     header h1 {
-      font-size: 2.8rem;
-      margin: 0 0 0.2rem;
+      font-size: 2.5rem;
+      margin: 0 0 0.3rem;
       color: #0af;
       text-shadow: 0 0 8px #0af;
     }
@@ -58,38 +55,62 @@
       margin: 0;
     }
 
-    /* Kotak konten */
+    /* Container untuk kotak */
+    .container {
+      max-width: 900px;
+      margin: 3rem auto 6rem;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 1rem;
+    }
+
+    /* Kotak-kotak */
     .box {
-      background: rgba(10, 170, 255, 0.1);
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(10, 170, 255, 0.3);
+      background: rgba(10,170,255,0.12);
+      border-radius: 14px;
+      box-shadow: 0 0 20px rgba(10,170,255,0.4);
       padding: 2rem 2.5rem;
-      margin: 3rem auto;
-      width: 80%;
-      max-width: 600px;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s ease-out;
+      width: 280px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      transition: transform 0.3s ease;
     }
-    .box.show {
-      opacity: 1;
-      transform: translateY(0);
+    .box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 30px rgba(10,170,255,0.7);
     }
+
     .box h2 {
       color: #0af;
       border-bottom: 3px solid #0af;
       padding-bottom: 0.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.4rem;
       text-align: center;
+      font-size: 1.8rem;
     }
 
-    ul {
-      padding-left: 1.6rem;
+    .box p, .box ul {
+      flex-grow: 1;
+      line-height: 1.5;
+      color: #ddd;
+      font-size: 1rem;
+    }
+    .box ul {
+      padding-left: 1.5rem;
+      margin: 0;
+    }
+    .box ul li {
+      margin-bottom: 0.7rem;
     }
 
     a {
       color: #0af;
       text-decoration: none;
+      word-break: break-word;
     }
     a:hover {
       text-decoration: underline;
@@ -100,29 +121,19 @@
       padding: 2rem 1rem;
       color: #666;
       font-size: 0.9rem;
-      margin-top: 6rem;
+      margin-bottom: 1rem;
     }
 
-    #scrollTopBtn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #0af;
-      border: none;
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      font-size: 28px;
-      color: #121212;
-      cursor: pointer;
-      box-shadow: 0 0 10px #0af;
-      display: none;
-      transition: background 0.3s ease;
-      z-index: 9999;
+    @media(max-width: 940px){
+      .container {
+        justify-content: center;
+      }
     }
-    #scrollTopBtn:hover {
-      background: #07a;
-      color: #fff;
+    @media(max-width: 600px){
+      .box {
+        width: 90%;
+        min-height: auto;
+      }
     }
   </style>
 </head>
@@ -131,144 +142,110 @@
 <canvas id="canvas"></canvas>
 
 <header>
-  <img src="https://avatars.githubusercontent.com/u/9919?s=280&v=4" alt="Foto Profil Nama Kamu" />
-  <h1>Ratna Agustina</h1>
+  <img src="https://avatars.githubusercontent.com/u/9919?s=280&v=4" alt="Foto Profil" />
+  <h1>Nama Kamu</h1>
   <p>Frontend Developer & UI/UX Designer</p>
 </header>
 
-<section class="box" id="tentang">
-  <h2>Tentang Saya</h2>
-  <p>
-    Saya seorang developer web yang menyukai desain modern dan animasi interaktif menggunakan JavaScript. Saya fokus pada pembuatan pengalaman pengguna yang menarik dan fungsional.
-  </p>
-</section>
+<div class="container">
+  <section class="box" id="tentang">
+    <h2>Tentang Saya</h2>
+    <p>
+      Saya seorang developer web yang menyukai desain modern dan animasi interaktif menggunakan JavaScript. Fokus saya adalah membuat pengalaman pengguna yang menarik dan fungsional.
+    </p>
+  </section>
 
-<section class="box" id="projek">
-  <h2>Proyek</h2>
-  <ul>
-    <li><strong>Portofolio Online:</strong> Website yang menampilkan profil dan karya saya.</li>
-    <li><strong>Aplikasi ToDo:</strong> Aplikasi manajemen tugas dengan fitur penyimpanan lokal.</li>
-    <li><strong>Game Kuis:</strong> Game berbasis browser dengan animasi dan interaksi menarik.</li>
-  </ul>
-</section>
+  <section class="box" id="projek">
+    <h2>Proyek</h2>
+    <ul>
+      <li><strong>Portofolio Online:</strong> Website yang menampilkan profil dan karya saya.</li>
+      <li><strong>Aplikasi ToDo:</strong> Aplikasi manajemen tugas dengan fitur penyimpanan lokal.</li>
+      <li><strong>Game Kuis:</strong> Game berbasis browser dengan animasi dan interaksi menarik.</li>
+    </ul>
+  </section>
 
-<section class="box" id="kontak">
-  <h2>Kontak</h2>
-  <p>Email: <a href="mailto:kamu@email.com">kamu@email.com</a></p>
-  <p>GitHub: <a href="https://github.com/username" target="_blank" rel="noopener noreferrer">github.com/username</a></p>
-</section>
-
-<button id="scrollTopBtn" aria-label="Scroll ke atas">↑</button>
+  <section class="box" id="kontak">
+    <h2>Kontak</h2>
+    <p>Email: <a href="mailto:kamu@email.com">kamu@email.com</a></p>
+    <p>GitHub: <a href="https://github.com/username" target="_blank" rel="noopener noreferrer">github.com/username</a></p>
+  </section>
+</div>
 
 <footer>
-  <p>&copy; 2025 Nama Kamu. Semua hak dilindungi.</p>
+  &copy; 2025 Nama Kamu. Semua hak dilindungi.
 </footer>
 
 <script>
-  // Setup canvas
+  // Canvas animasi bola bergerak di background
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
+  let w, h;
 
-  let width, height;
   function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w;
+    canvas.height = h;
   }
   resize();
   window.addEventListener('resize', resize);
 
-  // Ball class
   class Ball {
-    constructor(x, y, radius, color) {
+    constructor(x,y,r,color){
       this.x = x;
       this.y = y;
-      this.radius = radius;
+      this.r = r;
       this.color = color;
-      this.vx = (Math.random() - 0.5) * 1.2;
-      this.vy = (Math.random() - 0.5) * 1.2;
+      this.vx = (Math.random() - 0.5) * 1.3;
+      this.vy = (Math.random() - 0.5) * 1.3;
     }
-
-    draw() {
+    draw(){
       ctx.beginPath();
       ctx.fillStyle = this.color;
       ctx.shadowColor = this.color;
       ctx.shadowBlur = 10;
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
       ctx.fill();
     }
-
-    update() {
+    update(){
       this.x += this.vx;
       this.y += this.vy;
 
-      if(this.x + this.radius > width || this.x - this.radius < 0) this.vx *= -1;
-      if(this.y + this.radius > height || this.y - this.radius < 0) this.vy *= -1;
+      if(this.x + this.r > w || this.x - this.r < 0) this.vx *= -1;
+      if(this.y + this.r > h || this.y - this.r < 0) this.vy *= -1;
     }
   }
 
   const balls = [];
-  const ballCount = 40;
-  for(let i=0; i<ballCount; i++) {
-    const radius = 6 + Math.random()*6;
-    const x = Math.random() * (width - 2*radius) + radius;
-    const y = Math.random() * (height - 2*radius) + radius;
-    const color = `rgba(10,170,255,${0.3 + Math.random()*0.6})`;
-    balls.push(new Ball(x, y, radius, color));
+  const totalBalls = 40;
+  for(let i=0; i<totalBalls; i++){
+    const radius = 5 + Math.random() * 7;
+    const x = Math.random() * (w - 2*radius) + radius;
+    const y = Math.random() * (h - 2*radius) + radius;
+    const alpha = 0.2 + Math.random() * 0.6;
+    balls.push(new Ball(x,y,radius,`rgba(10,170,255,${alpha})`));
   }
 
-  // Bola mengikuti cursor
-  const cursorBall = new Ball(width/2, height/2, 12, 'rgba(0,200,255,0.8)');
-  let mouseX = width/2;
-  let mouseY = height/2;
-
+  const cursorBall = new Ball(w/2, h/2, 14, 'rgba(0,200,255,0.8)');
+  let mouseX = w/2;
+  let mouseY = h/2;
   window.addEventListener('mousemove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
   });
 
-  function animate() {
-    ctx.clearRect(0, 0, width, height);
+  function animate(){
+    ctx.clearRect(0,0,w,h);
     balls.forEach(ball => {
       ball.update();
       ball.draw();
     });
-
-    cursorBall.x += (mouseX - cursorBall.x)*0.15;
-    cursorBall.y += (mouseY - cursorBall.y)*0.15;
+    cursorBall.x += (mouseX - cursorBall.x) * 0.15;
+    cursorBall.y += (mouseY - cursorBall.y) * 0.15;
     cursorBall.draw();
-
     requestAnimationFrame(animate);
   }
   animate();
-
-  // Animasi fade-in tiap kotak saat scroll
-  const boxes = document.querySelectorAll('.box');
-  function revealBoxes() {
-    const trigger = window.innerHeight * 0.85;
-    boxes.forEach(box => {
-      const top = box.getBoundingClientRect().top;
-      if(top < trigger) {
-        box.classList.add('show');
-      }
-    });
-  }
-  window.addEventListener('scroll', revealBoxes);
-  window.addEventListener('load', revealBoxes);
-
-  // Tombol scroll ke atas
-  const scrollBtn = document.getElementById('scrollTopBtn');
-  window.addEventListener('scroll', () => {
-    if(window.scrollY > 300) {
-      scrollBtn.style.display = 'block';
-    } else {
-      scrollBtn.style.display = 'none';
-    }
-  });
-  scrollBtn.addEventListener('click', () => {
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  });
 </script>
 
 </body>
