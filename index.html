@@ -60,51 +60,49 @@
       margin: 0;
     }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      background: #222;
-      box-shadow: 0 2px 5px rgba(10, 170, 255, 0.5);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    nav a {
-      padding: 1rem 2rem;
-      text-decoration: none;
-      color: #0af;
-      font-weight: 600;
-      transition: background 0.3s ease;
-    }
-    nav a:hover {
-      background: #0af;
-      color: #121212;
+    /* Container untuk kotak-kotak konten */
+    .container {
+      max-width: 900px;
+      margin: 3rem auto;
+      display: grid;
+      gap: 2rem;
+      padding: 0 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 
-    section {
-      max-width: 850px;
-      margin: 3rem auto;
+    /* Kotak section */
+    .box {
+      background: rgba(255 255 255 / 0.05);
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(10, 170, 255, 0.2);
       padding: 1.5rem 1.2rem;
       opacity: 0;
       transform: translateY(50px);
       transition: all 0.7s ease-out;
-      background: rgba(255 255 255 / 0.05);
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(10, 170, 255, 0.2);
     }
-    section.show {
+    .box.show {
       opacity: 1;
       transform: translateY(0);
     }
-    section h2 {
+
+    .box h2 {
       color: #0af;
       border-bottom: 3px solid #0af;
       padding-bottom: 0.5rem;
       margin-bottom: 1rem;
+      text-align: center;
     }
+
     ul {
       padding-left: 1.6rem;
-      margin-bottom: 1.5rem;
+    }
+
+    a {
+      color: #0af;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
 
     footer {
@@ -136,13 +134,6 @@
       background: #07a;
       color: #fff;
     }
-    a {
-      color: #0af;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
 <body>
@@ -152,34 +143,35 @@
 
 <header>
   <!-- Ganti foto ini dengan foto profilmu -->
-  <img src="Ratna Agustina.png" alt="Foto Profil Nama Kamu" />
+  <img src="https://avatars.githubusercontent.com/u/9919?s=280&v=4" alt="Foto Profil Nama Kamu" />
   <h1>Nama Kamu</h1>
   <p>Frontend Developer & UI/UX Designer</p>
 </header>
 
-<nav>
-  <a href="#main-content">Home</a>
-</nav>
+<!-- Container kotak-kotak konten -->
+<div class="container">
+  <section class="box">
+    <h2>Tentang Saya</h2>
+    <p>
+      Saya seorang developer web yang menyukai desain modern dan animasi interaktif menggunakan JavaScript. Saya fokus pada pembuatan pengalaman pengguna yang menarik dan fungsional.
+    </p>
+  </section>
 
-<section id="main-content" class="section">
-  <h2>Tentang, Proyek & Kontak</h2>
-  
-  <h3>Tentang Saya</h3>
-  <p>
-    Saya seorang developer web yang menyukai desain modern dan animasi interaktif menggunakan JavaScript. Saya fokus pada pembuatan pengalaman pengguna yang menarik dan fungsional.
-  </p>
+  <section class="box">
+    <h2>Proyek</h2>
+    <ul>
+      <li><strong>Portofolio Online:</strong> Website yang menampilkan profil dan karya saya.</li>
+      <li><strong>Aplikasi ToDo:</strong> Aplikasi manajemen tugas dengan fitur penyimpanan lokal.</li>
+      <li><strong>Game Kuis:</strong> Game berbasis browser dengan animasi dan interaksi menarik.</li>
+    </ul>
+  </section>
 
-  <h3>Proyek</h3>
-  <ul>
-    <li><strong>Portofolio Online:</strong> Website yang menampilkan profil dan karya saya.</li>
-    <li><strong>Aplikasi ToDo:</strong> Aplikasi manajemen tugas dengan fitur penyimpanan lokal.</li>
-    <li><strong>Game Kuis:</strong> Game berbasis browser dengan animasi dan interaksi menarik.</li>
-  </ul>
-
-  <h3>Kontak</h3>
-  <p>Email: <a href="mailto:kamu@email.com">kamu@email.com</a></p>
-  <p>GitHub: <a href="https://github.com/username" target="_blank" rel="noopener noreferrer">github.com/username</a></p>
-</section>
+  <section class="box">
+    <h2>Kontak</h2>
+    <p>Email: <a href="mailto:kamu@email.com">kamu@email.com</a></p>
+    <p>GitHub: <a href="https://github.com/username" target="_blank" rel="noopener noreferrer">github.com/username</a></p>
+  </section>
+</div>
 
 <button id="scrollTopBtn" aria-label="Scroll ke atas">↑</button>
 
@@ -266,19 +258,19 @@
   }
   animate();
 
-  // Animasi section muncul saat scroll
-  const sections = document.querySelectorAll('section.section');
-  function revealSections() {
+  // Animasi box muncul saat scroll
+  const boxes = document.querySelectorAll('.box');
+  function revealBoxes() {
     const trigger = window.innerHeight * 0.85;
-    sections.forEach(section => {
-      const top = section.getBoundingClientRect().top;
+    boxes.forEach(box => {
+      const top = box.getBoundingClientRect().top;
       if(top < trigger) {
-        section.classList.add('show');
+        box.classList.add('show');
       }
     });
   }
-  window.addEventListener('scroll', revealSections);
-  window.addEventListener('load', revealSections);
+  window.addEventListener('scroll', revealBoxes);
+  window.addEventListener('load', revealBoxes);
 
   // Tombol scroll ke atas
   const scrollBtn = document.getElementById('scrollTopBtn');
