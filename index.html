@@ -61,7 +61,7 @@
   }
 
   .container {
-    max-width: 900px;
+    max-width: 950px;
     margin: 3rem auto 6rem;
     padding: 0 1rem;
     display: grid;
@@ -70,13 +70,14 @@
     grid-template-areas:
       "tentang projek"
       "pendidikan keahlian"
-      "kontak kontak";
+      "sertifikat kontak";
   }
 
   #tentang { grid-area: tentang; }
   #projek { grid-area: projek; }
   #pendidikan { grid-area: pendidikan; }
   #keahlian { grid-area: keahlian; }
+  #sertifikat { grid-area: sertifikat; }
   #kontak { grid-area: kontak; }
 
   .box {
@@ -146,6 +147,27 @@
     margin-bottom: 0.7rem;
   }
 
+  /* Sertifikat grid */
+  .sertifikat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+  }
+
+  .sertifikat-grid img {
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid #0af;
+    box-shadow: 0 0 12px rgba(0,200,255,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .sertifikat-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0,200,255,0.8);
+  }
+
   a {
     color: #0af;
     text-decoration: none;
@@ -172,6 +194,7 @@
         "projek"
         "pendidikan"
         "keahlian"
+        "sertifikat"
         "kontak";
     }
     .box {
@@ -206,17 +229,15 @@
     </ul>
   </section>
 
-  <!-- 🔹 Kotak Riwayat Pendidikan -->
   <section class="box" id="pendidikan">
     <h2>Riwayat Pendidikan</h2>
     <ul>
-      <li><strong>2024- Sekarang:</strong> SMK Informatika Utama, Jurusan Rekayasa Perangkat Lunak (RPL)</li>
-      <li><strong>2021- 2024:</strong> SMP Utama</li>
-      <li><strong>2015 - 2021:</strong> SD Negeri Gandul 02</li>
+      <li><strong>2022 - Sekarang:</strong> SMK Negeri [Nama Sekolahmu], Jurusan Rekayasa Perangkat Lunak (RPL)</li>
+      <li><strong>2019 - 2022:</strong> SMP Negeri [Nama Sekolahmu]</li>
+      <li><strong>2013 - 2019:</strong> SD Negeri [Nama Sekolahmu]</li>
     </ul>
   </section>
 
-  <!-- 🔹 Kotak Keahlian -->
   <section class="box" id="keahlian">
     <h2>Keahlian</h2>
     <div class="skill">
@@ -238,6 +259,17 @@
     <div class="skill">
       <div class="skill-name">Desain Web</div>
       <div class="skill-bar"><div class="skill-bar-fill" data-skill="90"></div></div>
+    </div>
+  </section>
+
+  <!-- 🔹 Kolom Sertifikat -->
+  <section class="box" id="sertifikat">
+    <h2>Sertifikat</h2>
+    <div class="sertifikat-grid">
+      <img src="sertifikat1.jpg" alt="Sertifikat 1">
+      <img src="sertifikat2.jpg" alt="Sertifikat 2">
+      <img src="sertifikat3.jpg" alt="Sertifikat 3">
+      <img src="sertifikat4.jpg" alt="Sertifikat 4">
     </div>
   </section>
 
