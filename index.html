@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portofolio dengan Animasi Bergerak</title>
+  <title>Portofolio dengan Animasi Bola Bergerak</title>
   <style>
-    /* Reset & base */
+    /* Reset dan dasar styling */
     * {
       box-sizing: border-box;
     }
@@ -27,6 +27,7 @@
       height: 100%;
       z-index: -1;
       background: #121212;
+      display: block;
     }
 
     header {
@@ -42,6 +43,7 @@
       object-fit: cover;
       margin-bottom: 1rem;
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
     header img:hover {
       transform: scale(1.1) rotate(5deg);
@@ -63,6 +65,9 @@
       justify-content: center;
       background: #222;
       box-shadow: 0 2px 5px rgba(10, 170, 255, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
     nav a {
       padding: 1rem 2rem;
@@ -79,7 +84,7 @@
     section {
       max-width: 850px;
       margin: 3rem auto;
-      padding: 0 1.2rem;
+      padding: 1.5rem 1.2rem;
       opacity: 0;
       transform: translateY(50px);
       transition: all 0.7s ease-out;
@@ -138,7 +143,7 @@
 <canvas id="canvas"></canvas>
 
 <header>
-  <!-- Ganti foto dengan milikmu -->
+  <!-- Ganti foto ini dengan foto profilmu -->
   <img src="https://avatars.githubusercontent.com/u/9919?s=280&v=4" alt="Foto Profil Nama Kamu" />
   <h1>Nama Kamu</h1>
   <p>Frontend Developer & UI/UX Designer</p>
@@ -179,12 +184,11 @@
 </footer>
 
 <script>
-  // ANIMASI BOLA FOLLOW CURSOR DI BACKGROUND
-
+  // Setup canvas
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
-  let width, height;
 
+  let width, height;
   function resize() {
     width = window.innerWidth;
     height = window.innerHeight;
@@ -194,7 +198,7 @@
   resize();
   window.addEventListener('resize', resize);
 
-  // Bola kecil
+  // Ball class
   class Ball {
     constructor(x, y, radius, color) {
       this.x = x;
@@ -218,30 +222,25 @@
       this.x += this.vx;
       this.y += this.vy;
 
-      // Pantul di tepi
-      if (this.x + this.radius > width || this.x - this.radius < 0) {
-        this.vx *= -1;
-      }
-      if (this.y + this.radius > height || this.y - this.radius < 0) {
-        this.vy *= -1;
-      }
+      if(this.x + this.radius > width || this.x - this.radius < 0) this.vx *= -1;
+      if(this.y + this.radius > height || this.y - this.radius < 0) this.vy *= -1;
     }
   }
 
   const balls = [];
   const ballCount = 40;
-  for(let i = 0; i < ballCount; i++) {
-    const radius = 6 + Math.random() * 6;
-    const x = Math.random() * (width - radius * 2) + radius;
-    const y = Math.random() * (height - radius * 2) + radius;
-    const color = `rgba(10,170,255,${0.3 + Math.random() * 0.6})`;
+  for(let i=0; i<ballCount; i++) {
+    const radius = 6 + Math.random()*6;
+    const x = Math.random() * (width - 2*radius) + radius;
+    const y = Math.random() * (height - 2*radius) + radius;
+    const color = `rgba(10,170,255,${0.3 + Math.random()*0.6})`;
     balls.push(new Ball(x, y, radius, color));
   }
 
-  // Bola yang mengikuti cursor
-  const cursorBall = new Ball(width / 2, height / 2, 12, 'rgba(0,200,255,0.8)');
-  let mouseX = width / 2;
-  let mouseY = height / 2;
+  // Bola mengikuti cursor
+  const cursorBall = new Ball(width/2, height/2, 12, 'rgba(0,200,255,0.8)');
+  let mouseX = width/2;
+  let mouseY = height/2;
 
   window.addEventListener('mousemove', e => {
     mouseX = e.clientX;
@@ -250,15 +249,13 @@
 
   function animate() {
     ctx.clearRect(0, 0, width, height);
-
     balls.forEach(ball => {
       ball.update();
       ball.draw();
     });
 
-    // Gerakkan bola cursor perlahan ke posisi mouse
-    cursorBall.x += (mouseX - cursorBall.x) * 0.15;
-    cursorBall.y += (mouseY - cursorBall.y) * 0.15;
+    cursorBall.x += (mouseX - cursorBall.x)*0.15;
+    cursorBall.y += (mouseY - cursorBall.y)*0.15;
     cursorBall.draw();
 
     requestAnimationFrame(animate);
@@ -289,7 +286,7 @@
     }
   });
   scrollBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({top: 0, behavior: 'smooth'});
   });
 </script>
 
