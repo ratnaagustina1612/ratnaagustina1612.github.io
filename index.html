@@ -3,38 +3,295 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portofolio - Nama Kamu</title>
+  <title>Portofolio dengan Animasi Bergerak</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background: #f7f9fc;
-      color: #222;
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
     }
+    body, html {
+      margin: 0; padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: #eee;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Canvas background */
+    #canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: #121212;
+    }
+
     header {
-      background: #1e88e5;
-      color: white;
       text-align: center;
-      padding: 3rem 1rem;
+      padding: 4rem 1rem 2rem;
     }
     header img {
       width: 140px;
       height: 140px;
-      object-fit: cover;
       border-radius: 50%;
-      border: 4px solid white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border: 4px solid #0af;
+      box-shadow: 0 0 15px #0af;
+      object-fit: cover;
       margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+    }
+    header img:hover {
+      transform: scale(1.1) rotate(5deg);
     }
     header h1 {
-      margin: 0;
-      font-size: 2.4rem;
+      font-size: 2.8rem;
+      margin: 0 0 0.2rem;
+      color: #0af;
+      text-shadow: 0 0 8px #0af;
     }
     header p {
       font-style: italic;
-      margin-top: 0.4rem;
-      font-weight: 500;
+      color: #ccc;
+      margin: 0;
     }
+
     nav {
-      background: #1565c0;
-      disp
+      display: flex;
+      justify-content: center;
+      background: #222;
+      box-shadow: 0 2px 5px rgba(10, 170, 255, 0.5);
+    }
+    nav a {
+      padding: 1rem 2rem;
+      text-decoration: none;
+      color: #0af;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    nav a:hover {
+      background: #0af;
+      color: #121212;
+    }
+
+    section {
+      max-width: 850px;
+      margin: 3rem auto;
+      padding: 0 1.2rem;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.7s ease-out;
+      background: rgba(255 255 255 / 0.05);
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(10, 170, 255, 0.2);
+    }
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section h2 {
+      color: #0af;
+      border-bottom: 3px solid #0af;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    ul {
+      padding-left: 1.6rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 5rem;
+    }
+
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #0af;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 28px;
+      color: #121212;
+      cursor: pointer;
+      box-shadow: 0 0 10px #0af;
+      display: none;
+      transition: background 0.3s ease;
+      z-index: 9999;
+    }
+    #scrollTopBtn:hover {
+      background: #07a;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Canvas untuk animasi bola -->
+<canvas id="canvas"></canvas>
+
+<header>
+  <!-- Ganti foto dengan milikmu -->
+  <img src="https://avatars.githubusercontent.com/u/9919?s=280&v=4" alt="Foto Profil Nama Kamu" />
+  <h1>Nama Kamu</h1>
+  <p>Frontend Developer & UI/UX Designer</p>
+</header>
+
+<nav>
+  <a href="#about">Tentang</a>
+  <a href="#projects">Proyek</a>
+  <a href="#contact">Kontak</a>
+</nav>
+
+<section id="about" class="section">
+  <h2>Tentang Saya</h2>
+  <p>
+    Saya seorang developer web yang menyukai desain modern dan animasi interaktif menggunakan JavaScript. Saya fokus pada pembuatan pengalaman pengguna yang menarik dan fungsional.
+  </p>
+</section>
+
+<section id="projects" class="section">
+  <h2>Proyek</h2>
+  <ul>
+    <li><strong>Portofolio Online:</strong> Website yang menampilkan profil dan karya saya.</li>
+    <li><strong>Aplikasi ToDo:</strong> Aplikasi manajemen tugas dengan fitur penyimpanan lokal.</li>
+    <li><strong>Game Kuis:</strong> Game berbasis browser dengan animasi dan interaksi menarik.</li>
+  </ul>
+</section>
+
+<section id="contact" class="section">
+  <h2>Kontak</h2>
+  <p>Email: kamu@email.com</p>
+  <p>GitHub: <a href="https://github.com/username" target="_blank" rel="noopener noreferrer" style="color:#0af;">github.com/username</a></p>
+</section>
+
+<button id="scrollTopBtn" aria-label="Scroll ke atas">↑</button>
+
+<footer>
+  <p>&copy; 2025 Nama Kamu. Semua hak dilindungi.</p>
+</footer>
+
+<script>
+  // ANIMASI BOLA FOLLOW CURSOR DI BACKGROUND
+
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Bola kecil
+  class Ball {
+    constructor(x, y, radius, color) {
+      this.x = x;
+      this.y = y;
+      this.radius = radius;
+      this.color = color;
+      this.vx = (Math.random() - 0.5) * 1.2;
+      this.vy = (Math.random() - 0.5) * 1.2;
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 10;
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      // Pantul di tepi
+      if (this.x + this.radius > width || this.x - this.radius < 0) {
+        this.vx *= -1;
+      }
+      if (this.y + this.radius > height || this.y - this.radius < 0) {
+        this.vy *= -1;
+      }
+    }
+  }
+
+  const balls = [];
+  const ballCount = 40;
+  for(let i = 0; i < ballCount; i++) {
+    const radius = 6 + Math.random() * 6;
+    const x = Math.random() * (width - radius * 2) + radius;
+    const y = Math.random() * (height - radius * 2) + radius;
+    const color = `rgba(10,170,255,${0.3 + Math.random() * 0.6})`;
+    balls.push(new Ball(x, y, radius, color));
+  }
+
+  // Bola yang mengikuti cursor
+  const cursorBall = new Ball(width / 2, height / 2, 12, 'rgba(0,200,255,0.8)');
+  let mouseX = width / 2;
+  let mouseY = height / 2;
+
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    balls.forEach(ball => {
+      ball.update();
+      ball.draw();
+    });
+
+    // Gerakkan bola cursor perlahan ke posisi mouse
+    cursorBall.x += (mouseX - cursorBall.x) * 0.15;
+    cursorBall.y += (mouseY - cursorBall.y) * 0.15;
+    cursorBall.draw();
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Animasi section muncul saat scroll
+  const sections = document.querySelectorAll('section.section');
+  function revealSections() {
+    const trigger = window.innerHeight * 0.85;
+    sections.forEach(section => {
+      const top = section.getBoundingClientRect().top;
+      if(top < trigger) {
+        section.classList.add('show');
+      }
+    });
+  }
+  window.addEventListener('scroll', revealSections);
+  window.addEventListener('load', revealSections);
+
+  // Tombol scroll ke atas
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 300) {
+      scrollBtn.style.display = 'block';
+    } else {
+      scrollBtn.style.display = 'none';
+    }
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
