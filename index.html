@@ -24,6 +24,7 @@
     width: 100%; height: 100%;
     z-index: -1;
     background: #121212;
+    pointer-events: none;
   }
 
   header {
@@ -147,7 +148,33 @@
     margin-bottom: 0.7rem;
   }
 
-  /* Sertifikat grid */
+  /* 🔹 Proyek Gambar */
+  .projek-gambar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .projek-gambar img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #0af;
+    box-shadow: 0 0 10px rgba(0,200,255,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .projek-gambar img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(0,200,255,0.8);
+  }
+
+  /* 🔹 Sertifikat */
   .sertifikat-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -183,7 +210,31 @@
     padding: 2rem 1rem;
     color: #666;
     font-size: 0.9rem;
-    margin-bottom: 1rem;
+    margin-top: auto;
+  }
+
+  /* 🔹 Popup Preview */
+  .popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .popup img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+    border: 3px solid #0af;
+    box-shadow: 0 0 25px #00bfff;
+  }
+
+  .popup.active {
+    display: flex;
   }
 
   @media (max-width: 700px) {
@@ -201,6 +252,8 @@
       min-height: auto;
     }
   }
+
+
 </style>
 </head>
 <body>
@@ -225,6 +278,7 @@
     <h2>Proyek</h2>
     <ul>
       <li><strong>Portofolio Online:</strong> Website yang menampilkan profil dan karya saya.</li>
+      <img src="portfolio.ratna.png" alt="Tampilan Proyek1">
       <li><strong>Aplikasi Belanja:</strong> Aplikasi belanja yang dapat menghasilkan struk belanja otomatis.</li>
     </ul>
   </section>
